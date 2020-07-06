@@ -1,0 +1,93 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+        <div class="header-body">
+            <!-- Card stats -->
+            <div class="row">
+                <div class="col-lg-7 col-md-10">
+                    <a [routerLink]="['/admin/users/add']" class="btn btn-info"><i class="fa fa-plus"></i> New User</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header border-0">
+                    <h3 class="mb-0">Users</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Avatar</th>
+                                <th scope="col">Full Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">Created At</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of users; let k=index">
+                                <th scope="row">
+                                    {{k + 1 + (pageNo - 1) * pageSize}}
+                                </th>
+                                <td>
+                                    <img class="avatar" *ngIf="user.avatar" [alt]="user.name" [src]="user.avatar" />
+                                    <img class="avatar" *ngIf="!user.avatar" [alt]="user.name"
+                                        [src]="'assets/img/brand/default.jpg'" />
+                                </td>
+                                <td>
+                                    {{user.name}}
+                                </td>
+                                <td>
+                                    {{user.email}}
+                                </td>
+                                <td>
+                                    {{user.phone}}
+                                </td>
+                                <td>
+                                    {{user.created_at}}
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-info btn-sm" (click)="editUser(user.id)">
+                                        <i class="fa fa-edit"></i> Edit
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-sm" (click)="deleteUser(user.id)">
+                                        <i class="fa fa-trash"></i> Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer py-4">
+                    <nav aria-label="...">
+                        <ul class="pagination justify-content-end mb-0">
+                            <li class="page-item">
+                                <a class="page-link" tabindex="-1" (click)="goToPrevious()">
+                                    <i class="fas fa-angle-left"></i>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                            <li class="page-item" *ngFor="let page of pages; let i=index;" (click)="goToPage(i)">
+                                <a class="page-link" [class.active]="pageNo==i+1">{{i + 1}}</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" (click)="goToNextPage()">
+                                    <i class="fas fa-angle-right"></i>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
